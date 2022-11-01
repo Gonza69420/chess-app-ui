@@ -1,6 +1,7 @@
 package org.example.example.game;
 
 import org.example.example.Validator.ManagerValidator;
+import org.example.example.piece.Color;
 import org.example.example.piece.Piece;
 
 import java.util.ArrayList;
@@ -52,6 +53,14 @@ public class Game {
         if (managerValidator.isItCheckMate(board, actualTurn ? player1.getColor() : player2.getColor())) {
             gameStatus.setWinnner(actualTurn ? player2 : player1);
         }
+    }
+
+    public Board getBoard () {
+        return board;
+    }
+
+    public Color getTurn() {
+        return actualTurn ? player1.getColor() : player2.getColor();
     }
 
 

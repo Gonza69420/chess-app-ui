@@ -38,7 +38,7 @@ public class Board {
 
     public Cordinate getPieceCordinate(Piece piece, Color color) {
         for (Cordinate cordinate : cordinates) {
-            if (cordinate.getPiece().equals(piece) && cordinate.getPiece().getColor().equals(color)) {
+            if (cordinate.hasPiece() && cordinate.getPiece().equals(piece) && cordinate.getPiece().getColor().equals(color)) {
                 return cordinate;
             }
         }

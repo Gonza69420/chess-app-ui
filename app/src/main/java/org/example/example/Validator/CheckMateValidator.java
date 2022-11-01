@@ -19,18 +19,10 @@ public class CheckMateValidator implements Validator {
 
     @Override
     public boolean validate(int x1, int y1, int x2, int y2, Board board, Color color, WinCondition winCondition) {
-        int alivePieces = winCondition.getPieces().size();
-        Piece onlyAlivePiece = null;
-        for (int i = 0; i < winCondition.getPieces().size() ; i++) {
-            if (winCondition.getPieces().get(i).isDead()){
-                alivePieces--;
-            }
-            if (alivePieces != 1) {
-                return false;
-            }else if (i == winCondition.getPieces().size() - 1){
-                onlyAlivePiece = winCondition.getPieces().get(i);
-            }
+        if (!winCondition.isOnly1PieceAliveByColor(color)){
+            return false;
         }
+        Piece onlyAlivePiece = winCondition.getLastAlivePieceByColor(color);
         Cordinate cordinate = board.getPieceCordinate(onlyAlivePiece, color);
         if ( cordinate != null){
             for(Cordinate cordinateOfPieces : board.getEnemyPiecesCordinates(color)){

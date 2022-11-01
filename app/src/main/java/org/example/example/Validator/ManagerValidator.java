@@ -22,7 +22,7 @@ public class ManagerValidator {
         if (checkMateValidator.validate(x1, y1, x2, y2, board, color, winCondition)) {
             return false;
         }
-        if (!board.getCordinate(x1 , y2).hasPiece()){
+        if (!board.getCordinate(x1 , y1).hasPiece()){
             return false;
         }
 

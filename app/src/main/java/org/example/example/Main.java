@@ -42,7 +42,12 @@ public class Main {
         board.getCordinate(3,3).pieceArrival(piece3);
         InfiniteMoveValidator infiniteMove = new InfiniteMoveValidator();
 
+        Piece piece43 = new Piece(Color.BLACK ,movementBehaviour , "King", false);
+        Piece piece44 = new Piece(Color.BLACK ,movementBehaviour , "King", false);
 
 
+        for (int i = 0; i <moves.size() ; i++) {
+            System.out.println(moves.get(i).canMoveThroughPieces());
+        }
     }
 }

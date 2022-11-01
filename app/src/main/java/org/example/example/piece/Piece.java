@@ -25,6 +25,7 @@ public class Piece {
         this.canPromote = false;
     }
 
+
     public Color getColor() {
         return color;
     }

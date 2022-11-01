@@ -37,4 +37,15 @@ public class WinCondition {
         }
         return null;
     }
+
+    public boolean isOnly1PieceAliveByColor(Color color){
+        List<Piece> piecesColor = getPiecesByColor(color);
+        int alivePieces = 0;
+        for (int i = 0; i <piecesColor.size() ; i++) {
+            if (!piecesColor.get(i).isDead()){
+                alivePieces++;
+            }
+        }
+        return alivePieces == 1;
+    }
 }
