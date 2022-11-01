@@ -18,11 +18,11 @@ public class PieceFabricator {
         List<SpecialMovement> specialMovements = new ArrayList<>();
         List<InfiniteMove> infiniteMoves = new ArrayList<>();
         if (color.equals(Color.WHITE)){
-            normalMoves.add(new NormalMove(0,1, false));
-            specialMovements.add(new SpecialMovement(0,2, false, cordinate));
-        } else {
             normalMoves.add(new NormalMove(0,-1, false));
             specialMovements.add(new SpecialMovement(0,-2, false, cordinate));
+        } else {
+            normalMoves.add(new NormalMove(0,1, false));
+            specialMovements.add(new SpecialMovement(0,2, false, cordinate));
         }
         return new Piece(color, new MovementBehaviour(normalMoves, specialMovements, infiniteMoves), "pawn", true);
     }

@@ -35,6 +35,7 @@ public class Game {
 
     public void makeAMove(int x1 , int y1 , int x2 , int y2){
         if (managerValidator.validMove(x1, y1, x2, y2, board, actualTurn ? player1.getColor() : player2.getColor())) {
+            System.out.println(true);
             Cordinate cordinate1 = board.getCordinate(x1 , y1);
             Cordinate cordinate2 = board.getCordinate(x2 , y2);
             if (cordinate2.hasPiece()) cordinate2.getPiece().killPiece();

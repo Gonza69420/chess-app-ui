@@ -36,7 +36,6 @@ public class GameEngineClassic implements GameEngine {
     @Override
     public MoveResult applyMove(@NotNull Move move) {
         game.makeAMove(move.component1().component1() , move.component1().component2() , move.component2().component1(), move.component2().component2());
-        game.changeTurn();
         return new NewGameState(updateChessPieceList(), game.getTurn().equals(Color.WHITE) ? PlayerColor.WHITE : PlayerColor.BLACK);
     }
 

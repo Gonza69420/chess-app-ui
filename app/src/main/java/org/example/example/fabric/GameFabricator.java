@@ -15,12 +15,11 @@ public class GameFabricator {
     public static Game createClassicGame(){
         Board board = BoardFabricator.createNormalBoard();
         List<Piece> winConditionPieces = new ArrayList<>();
-        winConditionPieces.add(board.getCordinate(5,1).getPiece());
-        winConditionPieces.add(board.getCordinate(5,8).getPiece());
+        winConditionPieces.add(board.getCordinate(1,5).getPiece());
+        winConditionPieces.add(board.getCordinate(8,5).getPiece());
         WinCondition winCondition = new WinCondition(winConditionPieces);
         Player player1 = new Player(Color.WHITE, "white");
         Player player2 = new Player(Color.BLACK, "black");
-
-        return new Game(player1 , player2, board, winCondition, board.getCordinate(4,1).getPiece());
+        return new Game(player1 , player2, board, winCondition, board.getCordinate(1,4).getPiece());
     }
 }

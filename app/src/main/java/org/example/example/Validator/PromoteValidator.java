@@ -10,9 +10,10 @@ public class PromoteValidator implements Validator {
     @Override
     public boolean validate(int x1, int y1, int x2, int y2, Board board, Color color, WinCondition winCondition) {
         if(board.getCordinate(x2,y2).getPiece().getCanPromote()){
-            return true;
-        }else {
-            return false;
+            if (y2 == board.getYLength()) {
+                return true;
+            }
         }
+            return false;
     }
 }

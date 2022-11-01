@@ -18,7 +18,7 @@ public class SpecialMoveValidator implements Validator {
         }
         List<SpecialMovement> moves = piece.getMovementBehaviour().getSpecialMove();
 
-        if (x1 == x2 || y1 == y2){
+        if (x1 == x2 && y1 == y2){
             return false;
         }
         if(board.getCordinate(x2, y2).hasPiece()) {
@@ -40,10 +40,11 @@ public class SpecialMoveValidator implements Validator {
                             return false;
                         }
                     }
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public boolean validateSpecialMove(Cordinate condition, Board board){

@@ -16,19 +16,20 @@ public class BoardFabricator {
                 cordinates.add(new Cordinate(i,j));
             }
         }
+
         Cordinate[] kingConditionWhite = new Cordinate[5];
-        kingConditionWhite[0] = cordinates.get(1);
-        kingConditionWhite[1] = cordinates.get(2);
-        kingConditionWhite[2] = cordinates.get(3);
-        kingConditionWhite[3] = cordinates.get(5);
-        kingConditionWhite[4] = cordinates.get(6);
+        kingConditionWhite[0] = cordinates.get(0);
+        kingConditionWhite[1] = cordinates.get(1);
+        kingConditionWhite[2] = cordinates.get(2);
+        kingConditionWhite[3] = cordinates.get(3);
+        kingConditionWhite[4] = cordinates.get(4);
         cordinates.get(4).pieceArrival(PieceFabricator.createKing(Color.WHITE, kingConditionWhite));
         Cordinate[] kingConditionBlack = new Cordinate[5];
-        kingConditionBlack[0] = cordinates.get(57);
-        kingConditionBlack[1] = cordinates.get(58);
-        kingConditionBlack[2] = cordinates.get(59);
-        kingConditionBlack[3] = cordinates.get(61);
-        kingConditionBlack[4] = cordinates.get(62);
+        kingConditionBlack[0] = cordinates.get(56);
+        kingConditionBlack[1] = cordinates.get(57);
+        kingConditionBlack[2] = cordinates.get(58);
+        kingConditionBlack[3] = cordinates.get(60);
+        kingConditionBlack[4] = cordinates.get(61);
         cordinates.get(60).pieceArrival(PieceFabricator.createKing(Color.BLACK, kingConditionBlack));
 
         cordinates.get(0).pieceArrival(PieceFabricator.createRook(Color.WHITE));
@@ -38,11 +39,11 @@ public class BoardFabricator {
         cordinates.get(5).pieceArrival(PieceFabricator.createBishop(Color.WHITE));
         cordinates.get(6).pieceArrival(PieceFabricator.createKnight(Color.WHITE));
         cordinates.get(7).pieceArrival(PieceFabricator.createRook(Color.WHITE));
-        for (int i = 8; i <16 ; i++) {
-            cordinates.get(i).pieceArrival(PieceFabricator.createPawn(Color.WHITE, new Cordinate[]{cordinates.get(i-8), cordinates.get(i)}));
+        for (int i = 8; i<16 ; i++) {
+            cordinates.get(i).pieceArrival(PieceFabricator.createPawn(Color.WHITE, new Cordinate[]{cordinates.get(i), cordinates.get(i)}));
         }
-        for (int i = 48; i <56 ; i++) {
-            cordinates.get(i).pieceArrival(PieceFabricator.createPawn(Color.BLACK, new Cordinate[]{cordinates.get(i+8), cordinates.get(i)}));
+        for (int i = 48; i <= 55 ; i++) {
+            cordinates.get(i).pieceArrival(PieceFabricator.createPawn(Color.BLACK, new Cordinate[]{cordinates.get(i), cordinates.get(i)}));
         }
         cordinates.get(56).pieceArrival(PieceFabricator.createRook(Color.BLACK));
         cordinates.get(57).pieceArrival(PieceFabricator.createKnight(Color.BLACK));

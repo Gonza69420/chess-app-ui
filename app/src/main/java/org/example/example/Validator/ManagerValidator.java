@@ -56,12 +56,12 @@ public class ManagerValidator {
                 }else{
                     return true;
                 }
+            }else{
+                return true;
             }
         }else{
             return false;
         }
-
-        return false;
     }
 
     public ManagerValidator(WinCondition winCondition) {

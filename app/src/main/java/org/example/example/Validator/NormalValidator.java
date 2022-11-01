@@ -40,9 +40,10 @@ public class NormalValidator implements Validator {
                         return false;
                     }
                 }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
 
