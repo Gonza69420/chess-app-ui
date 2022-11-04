@@ -3,21 +3,21 @@ package org.example.game.board
 import org.example.game.piece.Piece
 
 class CordinateWithPiece(
-    val piece : Piece,
-    val x : Int,
-    val y : Int
+    override val x : Int,
+    override val y : Int,
+    override val piece: Piece?
 ) : Cordinate {
 
-    override fun pieceArrival(Piece: Piece): CordinateWithPiece {
-        TODO("Not yet implemented")
+    override fun pieceArrival(piece: Piece): CordinateWithPiece {
+        return CordinateWithPiece(x, y, piece)
     }
 
     override fun pieceDeparture(): EmptyCordinate {
-        TODO("Not yet implemented")
+        return EmptyCordinate(x,y)
     }
 
     override fun hasPiece(): Boolean {
-        TODO("Not yet implemented")
+    return true;
     }
-}
+
 }

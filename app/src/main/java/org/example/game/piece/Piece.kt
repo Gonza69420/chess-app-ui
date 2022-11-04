@@ -1,5 +1,6 @@
 package org.example.game.piece
 
+import org.example.game.Validator.SpecialValidatorMove
 import org.example.game.Validator.ValidatorMove
 
 interface Piece{
@@ -8,5 +9,5 @@ interface Piece{
     val validator : List<ValidatorMove>?
     val data : PieceData?
 
-    fun isEmpty () : Boolean
+    fun getSpecialMoves() : List<SpecialValidatorMove>
 }

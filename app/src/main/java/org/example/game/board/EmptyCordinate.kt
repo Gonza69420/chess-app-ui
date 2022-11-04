@@ -2,13 +2,13 @@ package org.example.game.board
 
 import org.example.game.piece.Piece
 
-class EmptyCordinate : Cordinate{
-    override fun pieceArrival(Piece: Piece): CordinateWithPiece {
-        TODO("Not yet implemented")
+class EmptyCordinate(override val x: Int, override val y: Int, override val piece: Piece? = null) : Cordinate{
+    override fun pieceArrival(piece: Piece): CordinateWithPiece {
+        return CordinateWithPiece(x, y, piece)
     }
 
     override fun pieceDeparture(): EmptyCordinate {
-        TODO("Not yet implemented")
+        return EmptyCordinate(x,y)
     }
 
     override fun hasPiece(): Boolean {
