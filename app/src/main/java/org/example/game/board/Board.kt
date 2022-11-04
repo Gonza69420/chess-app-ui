@@ -1,11 +1,9 @@
 package org.example.game.board
 
-class Board (
-    cordinates : List<Cordinate>
-        ) {
+class Board (emptyCordinates : List<EmptyCordinate>) {
 
-    fun updateBoard(cordinate1 : Cordinate ,  cordinate2 : Cordinate) : Board{
-
+    fun updateBoard(emptyCordinate1 : EmptyCordinate, emptyCordinate2 : EmptyCordinate) : Board{
+        //TODO
     }
 
 }

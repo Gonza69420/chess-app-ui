@@ -1,9 +1,9 @@
 package org.example.game.Validator
 
-import org.example.game.board.Cordinate
+import org.example.game.board.EmptyCordinate
 
 interface SpecialValidatorMove : ValidatorMove {
-    val positionsInitial : List<Cordinate>
-    val positionFinal : List<Cordinate>
+    val positionsInitial : List<EmptyCordinate>
+    val positionFinal : List<EmptyCordinate>
 
 }
