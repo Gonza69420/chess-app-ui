@@ -13,11 +13,16 @@ import org.example.game.piece.Color
 class PawnValidatorMove() : ValidatorMove {
     private val generalValidator = GeneralValidator()
     private val pawnCaptureValidatorMove: PawnCaptureValidatorMove = PawnCaptureValidatorMove()
-    private val verticalValidatorMove : VerticalValidatorMove = VerticalValidatorMove(1, true)
+    private lateinit var verticalValidatorMove : VerticalValidatorMove
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
         if (pawnCaptureValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool) {
             return Status(true, "")
+        }
+        if (color == Color.WHITE) {
+            verticalValidatorMove = VerticalValidatorMove(1, false)
+        } else {
+            verticalValidatorMove = VerticalValidatorMove(1, true)
         }
         if (verticalValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool) {
             return Status(true, "")

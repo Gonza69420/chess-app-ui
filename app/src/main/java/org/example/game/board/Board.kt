@@ -1,21 +1,25 @@
 package org.example.game.board
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer
 import org.example.game.piece.Color
 import org.example.game.piece.Piece
 
-class Board (private val cordinates : List<Cordinate>) {
+class Board (private var cordinates : List<Cordinate> ) {
 
     fun updateBoard(Cordinate1 : Cordinate, Cordinate2 : Cordinate) : Board{
-        val newCordinates = cordinates.map {
-            if (it.x == Cordinate1.x && it.y == Cordinate1.y) {
-                Cordinate2
-            } else if (it.x == Cordinate2.x && it.y == Cordinate2.y) {
-                Cordinate1
-            } else {
-                it
+        val mutableCordinates = mutableListOf<Cordinate>()
+        for (i in cordinates){
+            if (i.x == Cordinate1.x && i.y == Cordinate1.y){
+                mutableCordinates.add(i.pieceDeparture())
+                continue
             }
+            if (i.x == Cordinate2.x && i.y == Cordinate2.y){
+                mutableCordinates.add(i.pieceArrival(Cordinate1.piece!!))
+                continue
+            }
+            mutableCordinates.add(i)
         }
-        return Board(newCordinates)
+        return Board(cordinates)
     }
 
     fun getCordinatesInBetween(Cordinate1 : Cordinate, Cordinate2 : Cordinate) : List<Cordinate>{

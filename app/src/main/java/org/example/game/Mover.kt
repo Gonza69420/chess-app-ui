@@ -17,9 +17,13 @@ class Mover(val checkValidator: CheckValidator) {
                 throw Exception("You can't capture the last win condition")
             }
         }
+        if (Cordinate1.piece?.color != color) {
+            throw Exception("Its not your turn")
+        }
         for (i in Cordinate1.piece!!.getValidators()) {
             val status = i.validate(Cordinate1, Cordinate2, color, board)
             if (status.bool) {
+                Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
                 val newBoard = board.updateBoard(Cordinate1, Cordinate2)
                 return newBoard
             }
@@ -28,6 +32,7 @@ class Mover(val checkValidator: CheckValidator) {
         for (i in Cordinate1.piece!!.getSpecialMoves()) {
             val status = i.validate(Cordinate1, Cordinate2, color, board)
             if (status.bool) {
+                Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
                 val finaPosition = i.positionFinal(color)
                 var newBoard = board.updateBoard(Cordinate1, Cordinate2)
                 for (j in finaPosition) {
