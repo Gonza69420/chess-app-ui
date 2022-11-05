@@ -1,48 +1,52 @@
 package org.example.game.Validator.pieces
 
+import org.example.game.Validator.GeneralValidator
+import org.example.game.Validator.Status
 import org.example.game.Validator.ValidatorMove
 import org.example.game.Validator.move.HorizontalValidatorMove
 import org.example.game.Validator.move.PawnCaptureValidatorMove
+import org.example.game.Validator.move.VerticalValidatorMove
 import org.example.game.board.Board
 import org.example.game.board.Cordinate
-import org.example.game.board.EmptyCordinate
 import org.example.game.piece.Color
 
-class PawnValidatorMove(
-    val PawnCaptureValidatorMove: PawnCaptureValidatorMove,
-    val HorizontalValidatorMove: HorizontalValidatorMove,
-) : ValidatorMove {
+class PawnValidatorMove() : ValidatorMove {
+    private val generalValidator = GeneralValidator()
+    private val pawnCaptureValidatorMove: PawnCaptureValidatorMove = PawnCaptureValidatorMove()
+    private val verticalValidatorMove : VerticalValidatorMove = VerticalValidatorMove(1, true)
 
-    override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Boolean {
-        if (PawnCaptureValidatorMove.validate(Cordinate1, Cordinate2, color, board)) {
-            return true
+    override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
+        if (pawnCaptureValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool) {
+            return Status(true, "")
         }
-        if (HorizontalValidatorMove.validate(Cordinate1, Cordinate2, color, board)) {
-            return true
+        if (verticalValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool) {
+            return Status(true, "")
         }
-        if (HorizontalValidatorMove.generalValidator.validateIsItMyPiece(Cordinate1, color)) {
-            if (HorizontalValidatorMove.generalValidator.validateAllyPieceInSecondCordinate(
-                    Cordinate2,
-                    color
-                ) && HorizontalValidatorMove.generalValidator.validateCordinate1EqualsCordinate2(
-                    Cordinate1,
-                    Cordinate2
-                ) && HorizontalValidatorMove.generalValidator.validatePiecesInBetween(
-                    Cordinate1,
-                    Cordinate2,
-                    board
-                )
-            ) {
-                if (Cordinate1.piece?.data?.get("moves") == Integer(0)) {
-                    if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y + 2 && color == Color.WHITE) {
-                        return true
-                    }
-                    if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.BLACK) {
-                        return true
+        if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool) {
+            if (generalValidator.validateAllyPieceInSecondCordinate(Cordinate2, color).bool) {
+                if (generalValidator.validateCordinate1EqualsCordinate2(
+                        Cordinate1,
+                        Cordinate2
+                    ).bool
+                ) {
+                    if (generalValidator.validatePiecesInBetween(
+                            Cordinate1,
+                            Cordinate2,
+                            board
+                        ).bool
+                    ) {
+                        if (Cordinate1.piece?.data?.get("moves") == 0) {
+                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y + 2 && color == Color.WHITE) {
+                                return Status(true, "")
+                            }
+                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.BLACK) {
+                                return Status(true, "")
+                            }
+                        }
                     }
                 }
             }
         }
-        return false
+        return Status(false, "Invalid move")
     }
 }

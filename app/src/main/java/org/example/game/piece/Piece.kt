@@ -8,7 +8,7 @@ interface Piece{
     val color : Color?
     val type : String?
     val validator : List<ValidatorMove>?
-    val data : HashMap<String , Integer>
+    val data : HashMap<String , Int>
     val dead : Boolean
     fun getSpecialMoves() : List<SpecialValidatorMove>
     fun getValidators() : List<ValidatorMove>

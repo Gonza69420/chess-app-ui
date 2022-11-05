@@ -5,39 +5,35 @@ import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
-class GeneralValidator(private val winCondition : WinCondition) {
-    fun validatePiecesInBetween(cordinate1 : Cordinate, cordinate2 : Cordinate , board : Board) : Boolean{
+class GeneralValidator() {
+    fun validatePiecesInBetween(cordinate1 : Cordinate, cordinate2 : Cordinate , board : Board) : Status{
         board.getCordinatesInBetween(cordinate1, cordinate2).forEach {
             if(it.hasPiece()){
-                return false
+                return Status(false , "There is a piece in between")
             }
         }
-        return true
+        return Status(true , "")
     }
 
-    fun validateAllyPieceInSecondCordinate(cordinate2: Cordinate, color : Color) : Boolean{
-        return cordinate2.piece?.color != color
-    }
-
-    fun validateWinConditionInSecondCordinate(cordinate2: Cordinate) : Boolean{
-        for (winCondition in winCondition.pieces){
-            if (winCondition == cordinate2.piece){
-                return false
-            }
+    fun validateAllyPieceInSecondCordinate(cordinate2: Cordinate, color : Color) : Status{
+        if(cordinate2.hasPiece() && cordinate2.piece!!.color == color){
+            return Status(false , "There is an ally piece in the second cordinate")
         }
-        return true
+        return Status(true , "")
     }
 
-    fun validateIsItMyPiece(cordinate1 : Cordinate, color : Color) : Boolean{
-        return if(cordinate1.hasPiece()){
-            cordinate1.piece?.color == color
-        }else{
-            false
+    fun validateIsItMyPiece(cordinate1 : Cordinate, color : Color) : Status{
+        if (cordinate1.piece?.color != color){
+            return Status(false , "You can't move the enemy piece")
         }
+        return Status(true , "")
     }
 
-    fun validateCordinate1EqualsCordinate2(cordinate1 : Cordinate, cordinate2 : Cordinate) : Boolean{
-        return cordinate1.x != cordinate2.x && cordinate1.y != cordinate2.y
+    fun validateCordinate1EqualsCordinate2(cordinate1 : Cordinate, cordinate2 : Cordinate) : Status{
+        if (cordinate1 == cordinate2){
+            return Status(false , "You can't move to the same cordinate")
+        }
+        return Status(true , "")
     }
 
 }

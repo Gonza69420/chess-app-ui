@@ -1,37 +1,46 @@
 package org.example.game.Validator.move
 
 import org.example.game.Validator.GeneralValidator
+import org.example.game.Validator.Status
 import org.example.game.Validator.ValidatorMove
-import org.example.game.WinCondition
 import org.example.game.board.Board
 import org.example.game.board.Cordinate
-import org.example.game.board.EmptyCordinate
 import org.example.game.piece.Color
 
-class HorizontalValidatorMove (
-    val limit : Int,
-    val direction : Boolean,
-    val generalValidator: GeneralValidator
-        ): ValidatorMove {
+class HorizontalValidatorMove (val limit : Int, val left : Boolean): ValidatorMove {
 
-    override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board : Board): Boolean {
-            if (generalValidator.validateIsItMyPiece(Cordinate1, color)){
-                if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2) && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color)  && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board)){
+    private val generalValidator = GeneralValidator()
+
+    override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board : Board): Status {
+            if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool){
+                if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool){
+                    if(generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool) {
+                        if (generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board).bool){
                                 var x = Cordinate1.x
-                                if (direction){
+                                if (left){
                                     x += limit
                                     if (x > Cordinate2.x && Cordinate1.y == Cordinate2.y){
-                                        return true
+                                        return Status(true, "")
                                     }
                                 }else{
                                     x -= limit
                                     if (x < Cordinate2.x && Cordinate1.y == Cordinate2.y){
-                                        return true
+                                        return Status(true, "")
                                     }
                                 }
+                        }else{
+                            return generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board)
+                        }
+                    }else{
+                        return generalValidator.validateAllyPieceInSecondCordinate(Cordinate2, color)
+                    }
+                }else {
+                    return generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2)
                 }
+            }else {
+                return generalValidator.validateIsItMyPiece(Cordinate1, color)
             }
-        return false
+            return Status(false, "Invalid move")
     }
 
 }

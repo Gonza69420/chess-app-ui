@@ -1,6 +1,7 @@
 package org.example.game.board
 
 import org.example.game.piece.Color
+import org.example.game.piece.Piece
 
 class Board (private val cordinates : List<Cordinate>) {
 
@@ -90,11 +91,35 @@ class Board (private val cordinates : List<Cordinate>) {
     }
 
     fun getCordinateByPieceId (id : Int) : Cordinate {
-        return cordinates.first { it.piece!!.id == id }
+        for (i in cordinates){
+            if (i.hasPiece()){
+                if (i.piece!!.id == id){
+                    return i
+                }
+            }
+        }
+        throw Exception("No piece with id $id")
     }
 
     fun getCordinates() : List<Cordinate> {
         return cordinates
     }
 
+    fun getBoardWidth() : Int {
+        return cordinates.map { it.x }.max()!!
+    }
+
+    fun getBoardHeight() : Int {
+        return cordinates.map { it.y }.max()!!
+    }
+
+    fun getAllPieces() : List<Piece> {
+        val pieces = mutableListOf<Piece>()
+        cordinates.forEach {
+            if (it.hasPiece()){
+                pieces.add(it.piece!!)
+            }
+        }
+        return pieces
+    }
 }

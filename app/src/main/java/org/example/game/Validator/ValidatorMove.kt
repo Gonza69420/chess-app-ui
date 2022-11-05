@@ -8,6 +8,6 @@ import org.example.game.piece.Color
 
 interface ValidatorMove {
 
-    fun validate(Cordinate1 : Cordinate, Cordinate2 : Cordinate, color : Color, board : Board) : Boolean
+    fun validate(Cordinate1 : Cordinate, Cordinate2 : Cordinate, color : Color, board : Board) : Status
 
 }

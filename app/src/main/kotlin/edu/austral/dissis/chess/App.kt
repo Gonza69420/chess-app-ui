@@ -11,6 +11,7 @@ import javafx.application.Application
 import javafx.application.Application.launch
 import javafx.scene.Scene
 import javafx.stage.Stage
+import org.example.GameEngineClassic
 
 
 fun main() {
@@ -18,7 +19,7 @@ fun main() {
 }
 
 class ChessGameApplication : Application() {
-    private val gameEngine = SimpleGameEngine()
+    private val gameEngine = GameEngineClassic()
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 
     companion object {
