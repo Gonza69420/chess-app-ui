@@ -8,5 +8,13 @@ class PieceWithSpecialMove(override val id : Int, override val color: Color, ove
         return specialMoves;
     }
 
+    override fun getValidators(): List<ValidatorMove> {
+        return validator;
+    }
+
+    override fun kill( ) : Piece{
+        return PieceWithoutSpecialMove(id, color, type, validator, data, true)
+    }
+
 
 }

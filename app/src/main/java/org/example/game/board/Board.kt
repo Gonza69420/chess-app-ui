@@ -1,5 +1,7 @@
 package org.example.game.board
 
+import org.example.game.piece.Color
+
 class Board (private val cordinates : List<Cordinate>) {
 
     fun updateBoard(Cordinate1 : Cordinate, Cordinate2 : Cordinate) : Board{
@@ -51,6 +53,48 @@ class Board (private val cordinates : List<Cordinate>) {
 
     fun getCordinate(x: Int, y: Int): Cordinate {
         return cordinates.first { it.x == x && it.y == y }
+    }
+
+    fun getIdOfPiecesInBoard () : List<Int>{
+        val idOfPieces = mutableListOf<Int>()
+        cordinates.forEach {
+            if (it.hasPiece()){
+                idOfPieces.add(it.piece!!.id)
+            }
+        }
+        return idOfPieces
+    }
+
+    fun getEnemyCordinates (color : Color) : List<Cordinate>{
+        val enemyPieces = mutableListOf<Cordinate>()
+        cordinates.forEach {
+            if (it.hasPiece()){
+                if (it.piece!!.color != color){
+                    enemyPieces.add(it)
+                }
+            }
+        }
+        return enemyPieces
+    }
+
+    fun getAllyCordinates (color : Color) : List<Cordinate>{
+        val allyPieces = mutableListOf<Cordinate>()
+        cordinates.forEach {
+            if (it.hasPiece()){
+                if (it.piece!!.color == color){
+                    allyPieces.add(it)
+                }
+            }
+        }
+        return allyPieces
+    }
+
+    fun getCordinateByPieceId (id : Int) : Cordinate {
+        return cordinates.first { it.piece!!.id == id }
+    }
+
+    fun getCordinates() : List<Cordinate> {
+        return cordinates
     }
 
 }

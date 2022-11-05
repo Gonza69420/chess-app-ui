@@ -16,7 +16,7 @@ class HorizontalValidatorMove (
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board : Board): Boolean {
             if (generalValidator.validateIsItMyPiece(Cordinate1, color)){
-                if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2) && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color) && generalValidator.validateWinConditionInSecondCordinate(Cordinate2) && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board)){
+                if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2) && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color)  && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board)){
                                 var x = Cordinate1.x
                                 if (direction){
                                     x += limit

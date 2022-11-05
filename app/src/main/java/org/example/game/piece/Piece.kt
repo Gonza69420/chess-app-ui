@@ -11,4 +11,6 @@ interface Piece{
     val data : HashMap<String , Integer>
     val dead : Boolean
     fun getSpecialMoves() : List<SpecialValidatorMove>
+    fun getValidators() : List<ValidatorMove>
+    fun kill ( ) : Piece
 }

@@ -22,7 +22,7 @@ class DiagonalValidatorMove(
                 ) && generalValidator.validateAllyPieceInSecondCordinate(
                     Cordinate2,
                     color
-                ) && generalValidator.validateWinConditionInSecondCordinate(Cordinate2) && generalValidator.validatePiecesInBetween(
+                ) && generalValidator.validatePiecesInBetween(
                     Cordinate1,
                     Cordinate2,
                     board

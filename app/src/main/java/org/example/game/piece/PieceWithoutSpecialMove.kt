@@ -10,7 +10,11 @@ class PieceWithoutSpecialMove(override  val id : Int, override val color: Color,
         return listOf()
     }
 
-    fun kill( ) : Piece{
+    override fun getValidators(): List<ValidatorMove> {
+        return validator;
+    }
+
+    override fun kill( ) : Piece{
         return PieceWithoutSpecialMove(id, color, type, validator, data, true)
     }
 

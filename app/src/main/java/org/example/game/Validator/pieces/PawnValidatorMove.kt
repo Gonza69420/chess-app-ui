@@ -27,7 +27,11 @@ class PawnValidatorMove(
                 ) && HorizontalValidatorMove.generalValidator.validateCordinate1EqualsCordinate2(
                     Cordinate1,
                     Cordinate2
-                ) && HorizontalValidatorMove.generalValidator.validateWinConditionInSecondCordinate(Cordinate2)
+                ) && HorizontalValidatorMove.generalValidator.validatePiecesInBetween(
+                    Cordinate1,
+                    Cordinate2,
+                    board
+                )
             ) {
                 if (Cordinate1.piece?.data?.get("moves") == Integer(0)) {
                     if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y + 2 && color == Color.WHITE) {

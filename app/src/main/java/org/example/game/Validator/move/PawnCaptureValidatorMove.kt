@@ -16,7 +16,7 @@ class PawnCaptureValidatorMove(
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Boolean {
         if (generalValidator.validateIsItMyPiece(Cordinate1, color)){
-            if (generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color) && generalValidator.validateCordinate1EqualsCordinate2(Cordinate1 , Cordinate2) && generalValidator.validateWinConditionInSecondCordinate(Cordinate2)){
+            if (generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color) && generalValidator.validateCordinate1EqualsCordinate2(Cordinate1 , Cordinate2)){
                 if (!Cordinate2.hasPiece()) return false
 
                 if (color == Color.WHITE){
