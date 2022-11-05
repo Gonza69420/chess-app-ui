@@ -1,4 +1,6 @@
 package org.example.game
 
-class WinCondition {
+import org.example.game.piece.Piece
+
+class WinCondition( val pieces : List<Piece>) {
 }
