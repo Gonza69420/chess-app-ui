@@ -18,13 +18,13 @@ class HorizontalValidatorMove (val limit : Int, val left : Boolean): ValidatorMo
                         if (generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board).bool){
                                 var x = Cordinate1.x
                                 if (left){
-                                    x += limit
-                                    if (x > Cordinate2.x && Cordinate1.y == Cordinate2.y){
+                                    x -= limit
+                                    if (x <= Cordinate2.x && Cordinate1.y == Cordinate2.y){
                                         return Status(true, "")
                                     }
                                 }else{
-                                    x -= limit
-                                    if (x < Cordinate2.x && Cordinate1.y == Cordinate2.y){
+                                    x += limit
+                                    if (x >= Cordinate2.x && Cordinate1.y == Cordinate2.y){
                                         return Status(true, "")
                                     }
                                 }

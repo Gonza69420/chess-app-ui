@@ -19,7 +19,7 @@ class Board (private var cordinates : List<Cordinate> ) {
             }
             mutableCordinates.add(i)
         }
-        return Board(cordinates)
+        return Board(mutableCordinates)
     }
 
     fun getCordinatesInBetween(Cordinate1 : Cordinate, Cordinate2 : Cordinate) : List<Cordinate>{
@@ -45,16 +45,21 @@ class Board (private var cordinates : List<Cordinate> ) {
             val xMax = maxOf(x1, x2)
             val yMin = minOf(y1, y2)
             val yMax = maxOf(y1, y2)
-            for (x in xMin + 1 until xMax) {
-                for (y in yMin + 1 until yMax) {
-                    if (x == y) {
-                        cordinatesInBetween.add(getCordinate(x, y))
-                    }
-                }
+            var listX : Set<Int> = mutableSetOf()
+            var listY : Set<Int> = mutableSetOf()
+            for (x in xMax - 1 downTo xMin + 1) {
+                listX = listX.plus(x)
+            }
+            for (y in yMax - 1 downTo yMin + 1) {
+                listY = listY.plus(y)
+            }
+            for(i in 0 until listX.size){
+                cordinatesInBetween.add(getCordinate(listX.elementAt(i), listY.elementAt(i)))
             }
         }
         return cordinatesInBetween
     }
+
 
     fun getCordinate(x: Int, y: Int): Cordinate {
         return cordinates.first { it.x == x && it.y == y }
