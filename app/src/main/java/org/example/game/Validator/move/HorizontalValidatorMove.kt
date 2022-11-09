@@ -12,6 +12,10 @@ class HorizontalValidatorMove (val limit : Int, val left : Boolean): ValidatorMo
     private val generalValidator = GeneralValidator()
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board : Board): Status {
+        var limit = limit
+        if (limit === 0){
+            limit = board.getBoardWidth()
+        }
             if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool){
                 if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool){
                     if(generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool) {
@@ -19,12 +23,12 @@ class HorizontalValidatorMove (val limit : Int, val left : Boolean): ValidatorMo
                                 var x = Cordinate1.x
                                 if (left){
                                     x -= limit
-                                    if (x <= Cordinate2.x && Cordinate1.y == Cordinate2.y){
+                                    if (x <= Cordinate2.x && Cordinate1.y == Cordinate2.y && Cordinate1.x > Cordinate2.x){
                                         return Status(true, "")
                                     }
                                 }else{
                                     x += limit
-                                    if (x >= Cordinate2.x && Cordinate1.y == Cordinate2.y){
+                                    if (x >= Cordinate2.x && Cordinate1.y == Cordinate2.y && Cordinate1.x < Cordinate2.x){
                                         return Status(true, "")
                                     }
                                 }
