@@ -11,7 +11,13 @@ class Mover(val checkValidator: CheckValidator) {
 
 
     fun movePiece (Cordinate1 : Cordinate, Cordinate2 : Cordinate, board : Board, color : Color) : Board {
-        val listOfwinCondition = winCondition.getIdOfWinConditionPieceAliveByColor(color, board)
+        var enemyColor : Color
+        if (color == Color.WHITE){
+            enemyColor = Color.BLACK
+        } else {
+            enemyColor = Color.WHITE
+        }
+        val listOfwinCondition = winCondition.getIdOfWinConditionPieceAliveByColor( enemyColor, board)
         if (listOfwinCondition.size == 1) {
             if (Cordinate2.piece?.id == listOfwinCondition.get(0)) {
                 throw Exception("You can't capture the last win condition")
@@ -23,8 +29,11 @@ class Mover(val checkValidator: CheckValidator) {
         for (i in Cordinate1.piece!!.getValidators()) {
             val status = i.validate(Cordinate1, Cordinate2, color, board)
             if (status.bool) {
-                Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
                 val newBoard = board.updateBoard(Cordinate1, Cordinate2)
+                if (checkValidator.validate(newBoard, color)) {
+                    throw Exception("You can't your king in check")
+                }
+                Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
                 return newBoard
             }
         }
@@ -32,14 +41,20 @@ class Mover(val checkValidator: CheckValidator) {
         for (i in Cordinate1.piece!!.getSpecialMoves()) {
             val status = i.validate(Cordinate1, Cordinate2, color, board)
             if (status.bool) {
+                var newBoard = board.updateBoard(Cordinate1, Cordinate2)
+                if (checkValidator.validate(newBoard, color)) {
+                    throw Exception("You can't your king in check")
+                }
                 Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
                 val finaPosition = i.positionFinal(color)
-                var newBoard = board.updateBoard(Cordinate1, Cordinate2)
                 for (j in finaPosition) {
                     if (j.hasPiece()) {
                         val cordinate = j.piece?.let { board.getCordinateByPieceId(it.id) }
                         newBoard = newBoard.updateBoard(cordinate!!, j)
                     }
+                }
+                if (checkValidator.validate(newBoard, color)) {
+                    throw Exception("You can't your king in check")
                 }
                 return newBoard
             }
