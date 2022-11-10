@@ -45,16 +45,12 @@ class Board (private var cordinates : List<Cordinate> ) {
             val xMax = maxOf(x1, x2)
             val yMin = minOf(y1, y2)
             val yMax = maxOf(y1, y2)
-            var listX : Set<Int> = mutableSetOf()
-            var listY : Set<Int> = mutableSetOf()
-            for (x in xMax - 1 downTo xMin + 1) {
-                listX = listX.plus(x)
-            }
-            for (y in yMax - 1 downTo yMin + 1) {
-                listY = listY.plus(y)
-            }
-            for(i in 0 until listX.size){
-                cordinatesInBetween.add(getCordinate(listX.elementAt(i), listY.elementAt(i)))
+            for (x in xMin + 1 until xMax) {
+                for (y in yMin + 1 until yMax) {
+                    if (x == y) {
+                        cordinatesInBetween.add(getCordinate(x, y))
+                    }
+                }
             }
         }
         return cordinatesInBetween

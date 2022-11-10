@@ -13,14 +13,17 @@ import org.example.game.piece.PieceWithSpecialMove
 import org.example.game.piece.PieceWithoutSpecialMove
 
 class PieceFabricator {
-    val hashMap = HashMap<String , Int>()
 
     fun createPawn(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         return PieceWithoutSpecialMove(id , color , "pawn" , listOf(PawnValidatorMove()) , hashMap)
     }
 
     fun createRook(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         val validators = ArrayList<ValidatorMove>()
 
@@ -32,11 +35,15 @@ class PieceFabricator {
     }
 
     fun createKnight(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         return PieceWithoutSpecialMove(id , color , "knight" , listOf(KnightValidatorMove()) , hashMap)
     }
 
     fun createBishop(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(DiagonalValidatorMove(0 , listOf(1,2,3,4)))
@@ -44,6 +51,8 @@ class PieceFabricator {
     }
 
     fun createQueen(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(DiagonalValidatorMove(0 , listOf(1,2,3,4)))
@@ -55,6 +64,8 @@ class PieceFabricator {
     }
 
     fun createKing(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
         hashMap.put("moves", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(DiagonalValidatorMove(1 , listOf(1,2,3,4)))

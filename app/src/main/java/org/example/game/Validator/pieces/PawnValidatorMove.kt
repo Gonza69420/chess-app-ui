@@ -24,7 +24,7 @@ class PawnValidatorMove() : ValidatorMove {
         } else {
             verticalValidatorMove = VerticalValidatorMove(1, true)
         }
-        if (verticalValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool) {
+        if (verticalValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool && !Cordinate2.hasPiece()) {
             return Status(true, "")
         }
         if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool) {
@@ -41,10 +41,10 @@ class PawnValidatorMove() : ValidatorMove {
                         ).bool
                     ) {
                         if (Cordinate1.piece?.data?.get("moves") == 0) {
-                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y + 2 && color == Color.WHITE) {
+                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.WHITE) {
                                 return Status(true, "")
                             }
-                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.BLACK) {
+                            if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y + 2 && color == Color.BLACK) {
                                 return Status(true, "")
                             }
                         }

@@ -12,7 +12,7 @@ class CheckMateValidator(private val CheckValidator : CheckValidator) {
                 for (j in i.piece?.getValidators()!!) {
                     for (k in board.getCordinates()) {
                         if (j.validate(i, k, color, board).bool) {
-                            val newBoard = board.updateBoard(i.pieceDeparture(), k.pieceArrival(i.piece!!))
+                            val newBoard = board.updateBoard(i, k)
                             if (!CheckValidator.validate(newBoard, color)) {
                                 return false
                             }
