@@ -22,48 +22,29 @@ class DiagonalValidatorMove(var limit : Int, val quadrant : List<Int>): Validato
                             var x = Cordinate1.x
                             for (i in quadrant) {
                                 if (i == 1) {
-                                    y += limit
-                                    x += limit
-
                                     for (j in 1..limit) {
-                                        if (y == Cordinate2.y && x == Cordinate2.x) {
+                                        if (y + j == Cordinate2.y && x + j == Cordinate2.x) {
                                             return Status(true, "")
                                         }
-                                        y -= 1
-                                        x -= 1
+
                                     }
                                 } else if (i == 2) {
-                                    y += limit
-                                    x -= limit
-
                                     for (j in 1..limit) {
-                                        if (y == Cordinate2.y && x == Cordinate2.x) {
+                                        if (y+j == Cordinate2.y && x-j == Cordinate2.x) {
                                             return Status(true, "")
                                         }
-                                        y -= 1
-                                        x += 1
                                     }
                                 } else if (i == 3) {
-                                    y -= limit
-                                    x -= limit
-
                                     for (j in 1..limit) {
-                                        if (y == Cordinate2.y && x == Cordinate2.x) {
+                                        if (y-j == Cordinate2.y && x-j == Cordinate2.x) {
                                             return Status(true, "")
                                         }
-                                        y += 1
-                                        x += 1
                                     }
                                 } else if (i == 4) {
-                                    y -= limit
-                                    x += limit
-
                                     for (j in 1..limit) {
-                                        if (y == Cordinate2.y && x == Cordinate2.x) {
+                                        if (y-j == Cordinate2.y && x+j == Cordinate2.x) {
                                             return Status(true, "")
                                         }
-                                        y += 1
-                                        x -= 1
                                     }
                                 }
                             }

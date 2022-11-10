@@ -46,7 +46,7 @@ class Mover(val checkValidator: CheckValidator) {
                     throw Exception("You can't your king in check")
                 }
                 Cordinate1.piece!!.data["moves"] = Cordinate1.piece!!.data["moves"]!! + 1
-                val finaPosition = i.positionFinal(color)
+                val finaPosition = i.positionFinal(color, board, Cordinate2)
                 for (j in finaPosition) {
                     if (j.hasPiece()) {
                         val cordinate = j.piece?.let { board.getCordinateByPieceId(it.id) }

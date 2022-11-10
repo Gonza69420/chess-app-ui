@@ -10,18 +10,18 @@ class GameEngineClassic  : GameEngine {
 
     override fun applyMove(move: Move): MoveResult {
         try {
+            game = game.movePiece(move.from.column, move.from.row, move.to.column, move.to.row)
+            if  (game.getTurn() == Color.WHITE) {
+                return NewGameState(chessPieces() , PlayerColor.WHITE)
+            }else{
+                return NewGameState(chessPieces() , PlayerColor.BLACK)
+            }
             if (game.isItCheckMate()) {
                 if (game.getTurn() == Color.WHITE) {
                     return GameOver(PlayerColor.WHITE)
                 }else{
                     return GameOver(PlayerColor.BLACK)
                 }
-            }
-            game = game.movePiece(move.from.column, move.from.row, move.to.column, move.to.row)
-            if  (game.getTurn() == Color.WHITE) {
-                return NewGameState(chessPieces() , PlayerColor.WHITE)
-            }else{
-                return NewGameState(chessPieces() , PlayerColor.BLACK)
             }
         }catch (e : Exception){
             return InvalidMove( e.message.toString())
