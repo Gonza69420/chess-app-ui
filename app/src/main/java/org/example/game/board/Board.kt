@@ -29,21 +29,34 @@ class Board (private var cordinates : List<Cordinate> ) {
         val y1 = Cordinate1.y
         val x2 = Cordinate2.x
         val y2 = Cordinate2.y
-
-
+        if (x1 == x2) {
+            val yMin = minOf(y1, y2)
+            val yMax = maxOf(y1, y2)
+            for (y in yMin + 1 until yMax) {
+                cordinatesInBetween.add(getCordinate(x1, y))
+            }
+        } else if (y1 == y2) {
+            val xMin = minOf(x1, x2)
+            val xMax = maxOf(x1, x2)
+            for (x in xMin + 1 until xMax) {
+                cordinatesInBetween.add(getCordinate(x, y1))
+            }
+        }else{
             val xMin = minOf(x1, x2)
             val xMax = maxOf(x1, x2)
             val yMin = minOf(y1, y2)
             val yMax = maxOf(y1, y2)
             for (x in xMin + 1 until xMax){
                 for (y in yMin + 1 until yMax){
-                    if (kotlin.math.abs(x - x1) == kotlin.math.abs(y - y1)){
+                    if (Math.abs(x - x1) == Math.abs(y - y1)){
                         cordinatesInBetween.add(getCordinate(x , y))
                     }
                 }
             }
+        }
         return cordinatesInBetween
     }
+
 
 
     fun getCordinate(x: Int, y: Int): Cordinate {
