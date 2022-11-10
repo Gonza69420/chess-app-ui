@@ -1,8 +1,7 @@
 package org.example.game.Validator.special
 
-import org.example.game.Validator.GeneralValidator
-import org.example.game.Validator.SpecialValidatorMove
-import org.example.game.Validator.Status
+import org.example.game.Validator.*
+import org.example.game.WinCondition
 import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.board.CordinateWithPiece
@@ -15,57 +14,29 @@ class CastleValidator() : SpecialValidatorMove {
     private val generalValidator: GeneralValidator = GeneralValidator()
 
     override fun positionFinal(color : Color, board : Board, cordinate2 : Cordinate): List<Cordinate> {
-        var list : List<Cordinate> = ArrayList()
-        if (color == Color.WHITE) {
-            if (cordinate2.x == 2) {
-                list = listOf(CordinateWithPiece(3, 1, board.getCordinate(1, 1).piece), CordinateWithPiece(4, 1, board.getCordinate(5, 1).piece), EmptyCordinate(1, 1), EmptyCordinate(5, 1))
-            } else if (cordinate2.x == 6) {
-                list = listOf(CordinateWithPiece(5, 1, board.getCordinate(8, 1).piece), CordinateWithPiece(6, 1, board.getCordinate(5, 1).piece), EmptyCordinate(8, 1), EmptyCordinate(5, 1))
-            }
-        } else {
-            if (cordinate2.x == 2) {
-                list = listOf(
-                    CordinateWithPiece(3, 8, board.getCordinate(1, 8).piece),
-                    CordinateWithPiece(4, 8, board.getCordinate(5, 8).piece),
-                    EmptyCordinate(1, 8),
-                    EmptyCordinate(5, 8)
-                )
-            } else if (cordinate2.x == 6) {
-                list = listOf(
-                    CordinateWithPiece(5, 8, board.getCordinate(8, 8).piece),
-                    CordinateWithPiece(6, 8, board.getCordinate(5, 8).piece),
-                    EmptyCordinate(8, 8),
-                    EmptyCordinate(5, 8)
-                )
-            }
+        var y = 1
+        if (color == Color.BLACK){
+            y = 8
         }
+        var list : List<Cordinate> = ArrayList()
+            if (cordinate2.x == 2) {
+                list = listOf(CordinateWithPiece(3, y, board.getCordinate(1, y).piece), CordinateWithPiece(4, y, board.getCordinate(5, y).piece), EmptyCordinate(1, y), EmptyCordinate(5, y))
+            } else if (cordinate2.x == 6) {
+                list = listOf(CordinateWithPiece(6, y, board.getCordinate(8, y).piece), CordinateWithPiece(7, y, board.getCordinate(5, y).piece), EmptyCordinate(8, y), EmptyCordinate(5, y))
+            }
         return list
     }
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
-        if (color == Color.WHITE){
+        val checkValidator : CheckValidator
             if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board).bool){
-                if (Cordinate1.x == 5 && Cordinate1.y == 1 && Cordinate2.x == 2 && Cordinate2.y == 1){
-                    if (board.getCordinate(2,1) is EmptyCordinate && board.getCordinate(3,1) is EmptyCordinate && board.getCordinate(4,1) is EmptyCordinate ) {
-                        if(validateRook(1 , 1 , board , color) && validateKing(5,1,board,color)){
-                            // TODO: check if the king is in check
-
-                            return Status(true, "")
-                        }
-
-                    }
-                }else if (Cordinate1.x == 5 && Cordinate1.y == 1 && Cordinate2.x == 7 && Cordinate2.y == 1){
-                    if (board.getCordinate(6,1) is EmptyCordinate && board.getCordinate(7,1) is EmptyCordinate){
-                        if(validateRook(8,1,board,color) && validateKing(5,1,board,color)){
-                            // TODO: check if the king is in check
-
-                            return Status(true, "")
-                        }
-                    }
+                if (Cordinate2.x == 2){
+                    return validateLeftSide(Cordinate1, Cordinate2, board, color)
+                }else{
+                    return validateRightSide(Cordinate1, Cordinate2, board, color)
                 }
-
             }
-        }
+
         return Status(false, "Invalid move")
     }
 
@@ -85,5 +56,51 @@ class CastleValidator() : SpecialValidatorMove {
         }
         return false
     }
+
+    fun validateLeftSide (Cordinate1: Cordinate, Cordinate2: Cordinate ,board : Board, color : Color) : Status{
+        var y = 1
+        if (color == Color.BLACK){
+            y = 8
+        }
+        if (Cordinate1.x == 5 && Cordinate1.y == y && Cordinate2.x == 2 && Cordinate2.y == y){
+
+        if (board.getCordinate(2,y) is EmptyCordinate && board.getCordinate(3,y) is EmptyCordinate && board.getCordinate(4,y) is EmptyCordinate){
+            if (validateRook(1,y,board,color) && validateKing(5,y,board,color)){
+                    val checkValidator = CheckValidator(WinCondition(listOf<Piece>(board.getCordinate(5,y).piece!!)))
+                    if (checkValidator.validate(board, color)){ return Status(false, "You can't castle because you are in check") }
+                    val Board = board.updateBoard(CordinateWithPiece(5, y, board.getCordinate(5, y).piece), CordinateWithPiece(7, y, null))
+                    if (checkValidator.validate(Board, color)){ return Status(false, "You can't castle because you will be in check")}
+                    return Status(true, "")
+                }else{
+                    return Status(false, "You can't castle because the king or the rook has moved")
+                }
+            }
+        }
+        return Status(false, "Invalid move")
+    }
+
+
+    fun validateRightSide (Cordinate1: Cordinate, Cordinate2: Cordinate ,board : Board, color : Color) : Status{
+        var y = 1
+        if (color == Color.BLACK){
+            y = 8
+        }
+        if (Cordinate1.x == 5 && Cordinate1.y == y && Cordinate2.x == 7 && Cordinate2.y == y){
+            if (board.getCordinate(6,y) is EmptyCordinate && board.getCordinate(7,y) is EmptyCordinate){
+                if (validateRook(8,y,board,color) && validateKing(5,y,board,color)){
+                        val checkValidator = CheckValidator(WinCondition(listOf<Piece>(board.getCordinate(5,y).piece!!)))
+                        if (checkValidator.validate(board, color)){ return Status(false, "You can't castle because you are in check") }
+                        val Board = board.updateBoard(CordinateWithPiece(5, y, board.getCordinate(5, y).piece), CordinateWithPiece(7, y, null))
+                        if (checkValidator.validate(Board, color)){ return Status(false, "You can't castle because you will be in check")}
+                        return Status(true, "")
+                    }else{
+                        return Status(false, "You can't castle because the king or the rook has moved")
+                    }
+                }
+            }
+        return Status(false, "Invalid move")
+    }
+
+
 
 }

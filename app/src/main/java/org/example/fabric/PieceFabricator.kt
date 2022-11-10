@@ -7,6 +7,7 @@ import org.example.game.Validator.move.VerticalValidatorMove
 import org.example.game.Validator.pieces.KnightValidatorMove
 import org.example.game.Validator.pieces.PawnValidatorMove
 import org.example.game.Validator.special.CastleValidator
+import org.example.game.WinCondition
 import org.example.game.piece.Color
 import org.example.game.piece.Piece
 import org.example.game.piece.PieceWithSpecialMove
