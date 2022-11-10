@@ -21,14 +21,13 @@ class CastleValidator() : SpecialValidatorMove {
         var list : List<Cordinate> = ArrayList()
             if (cordinate2.x == 2) {
                 list = listOf(CordinateWithPiece(3, y, board.getCordinate(1, y).piece), CordinateWithPiece(4, y, board.getCordinate(5, y).piece), EmptyCordinate(1, y), EmptyCordinate(5, y))
-            } else if (cordinate2.x == 6) {
+            } else if (cordinate2.x == 7) {
                 list = listOf(CordinateWithPiece(6, y, board.getCordinate(8, y).piece), CordinateWithPiece(7, y, board.getCordinate(5, y).piece), EmptyCordinate(8, y), EmptyCordinate(5, y))
             }
         return list
     }
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
-        val checkValidator : CheckValidator
             if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board).bool){
                 if (Cordinate2.x == 2){
                     return validateLeftSide(Cordinate1, Cordinate2, board, color)
