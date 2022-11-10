@@ -8,6 +8,9 @@ class WinCondition( val pieces : List<Piece>) {
 
     fun getIdOfWinConditionPieceAliveByColor (color : Color, board : Board) : List<Int> {
         var idOfPieces : List<Int> = ArrayList()
+        if (pieces.size == 0){
+            idOfPieces += -1
+        }
         for (i in pieces) {
             if (i.color == color) {
                 if (board.getIdOfPiecesInBoard().contains(i.id)) {

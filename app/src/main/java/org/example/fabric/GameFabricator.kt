@@ -1,5 +1,6 @@
 package org.example.fabric
 
+import org.example.game.AntiChessGame
 import org.example.game.Game
 import org.example.game.WinCondition
 import org.example.game.piece.Color
@@ -12,5 +13,12 @@ class GameFabricator {
         val board = boardFabricator.createNormalBoard()
         val winCondition = WinCondition(listOf(pieceFabricator.createKing(5, Color.WHITE) , pieceFabricator.createKing(29 , Color.BLACK)))
         return Game(board, winCondition, Color.WHITE)
+    }
+
+    fun createAntiChessGame() : AntiChessGame{
+        val boardFabricator = BoardFabricator()
+        val board = boardFabricator.createAntiChessBoard()
+        val winCondition = WinCondition(listOf())
+        return AntiChessGame(board, winCondition, Color.WHITE)
     }
 }

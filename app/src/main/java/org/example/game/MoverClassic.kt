@@ -5,7 +5,7 @@ import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
-class Mover(val checkValidator: CheckValidator) {
+class MoverClassic(val checkValidator: CheckValidator) {
 
     val winCondition: WinCondition = checkValidator.getWinCondition()
 

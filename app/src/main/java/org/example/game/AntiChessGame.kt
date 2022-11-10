@@ -5,14 +5,12 @@ import org.example.game.Validator.CheckValidator
 import org.example.game.board.Board
 import org.example.game.piece.Color
 
-class Game(
+class AntiChessGame (
     private val board : Board,
     private val winCondition : WinCondition,
     private val turn : Color,
 ) {
-    private val checkValidator : CheckValidator = CheckValidator( winCondition)
-    private val checkMateValidator : CheckMateValidator = CheckMateValidator(checkValidator)
-    private val moverClassic : MoverClassic = MoverClassic(checkValidator)
+    private val moverAnti : MoverAnti = MoverAnti()
 
 
     fun changeTurn () : Color {
@@ -23,18 +21,14 @@ class Game(
     }
 
     fun isItCheckMate () : Boolean {
-        return checkMateValidator.validate(board , turn)
+        return board.getAllyCordinates(turn).isEmpty()
     }
 
-    fun isItCheck () : Boolean {
-        return checkValidator.validate(board , turn)
-    }
-
-    fun movePiece (x1 : Int , y1 : Int , x2 : Int , y2 : Int) : Game {
+    fun movePiece (x1 : Int , y1 : Int , x2 : Int , y2 : Int) : AntiChessGame {
         val cordinate1 = board.getCordinate(x1 , y1)
         val cordinate2 = board.getCordinate(x2 , y2)
-        val newBoard = moverClassic.movePiece(cordinate1 , cordinate2 , board, turn)
-        return Game(newBoard , winCondition, changeTurn())
+        val newBoard = moverAnti.movePiece(cordinate1 , cordinate2 , board, turn)
+        return AntiChessGame(newBoard , winCondition, changeTurn())
     }
 
     fun getBoard () : Board {
@@ -48,9 +42,5 @@ class Game(
     fun getWinCondition () : WinCondition {
         return winCondition
     }
-
-
-
-
 
 }
