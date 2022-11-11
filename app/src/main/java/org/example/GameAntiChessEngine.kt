@@ -9,7 +9,7 @@ class GameAntiChessEngine :  GameEngine{
     var game = GameFabricator().createAntiChessGame()
 
     override fun applyMove(move: Move): MoveResult {
-        //try {
+        try {
             if (game.isItCheckMate()) {
                 if (game.getTurn() == Color.WHITE) {
                     return GameOver(PlayerColor.BLACK)
@@ -31,9 +31,9 @@ class GameAntiChessEngine :  GameEngine{
                 }
                 return moveResult
             }
-        //}catch (e : Exception){
-        //    return InvalidMove( e.message.toString())
-        //}
+        }catch (e : Exception){
+            return InvalidMove( e.message.toString())
+        }
     }
 
     override fun init(): InitialState {

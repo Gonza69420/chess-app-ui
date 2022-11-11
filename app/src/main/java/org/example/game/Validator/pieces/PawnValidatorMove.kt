@@ -40,7 +40,7 @@ class PawnValidatorMove() : ValidatorMove {
                             board
                         ).bool
                     ) {
-                        if (Cordinate1.piece?.data?.get("moves") == 0) {
+                        if (Cordinate1.piece?.data?.get("moves") == 0 && !Cordinate2.hasPiece()) {
                             if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.WHITE) {
                                 return Status(true, "")
                             }

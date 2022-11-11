@@ -10,6 +10,7 @@ interface Piece{
     val validator : List<ValidatorMove>?
     val data : HashMap<String , Int>
     val dead : Boolean
+    val promotion : Boolean
     fun getSpecialMoves() : List<SpecialValidatorMove>
     fun getValidators() : List<ValidatorMove>
     fun kill ( ) : Piece

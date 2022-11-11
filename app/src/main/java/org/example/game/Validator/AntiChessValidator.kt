@@ -6,9 +6,14 @@ import org.example.game.piece.Color
 
 class AntiChessValidator() {
 
-    fun validate(color: Color, board: Board): Status {
+    fun validate(color: Color, board: Board, Cordinate2 : Cordinate): Status {
         val allyCordinates = board.getAllyCordinates(color)
         val enemyCordinates = board.getEnemyCordinates(color)
+        if (Cordinate2.hasPiece()) {
+            if (Cordinate2.piece?.color != color) {
+                return Status(true, "")
+            }
+        }
         for (i in allyCordinates) {
             for (j in i.piece?.getValidators()!!) {
                 for (k in enemyCordinates) {
