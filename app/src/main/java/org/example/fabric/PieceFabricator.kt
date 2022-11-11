@@ -5,6 +5,7 @@ import org.example.game.Validator.move.DiagonalValidatorMove
 import org.example.game.Validator.move.HorizontalValidatorMove
 import org.example.game.Validator.move.JumpValidator
 import org.example.game.Validator.move.VerticalValidatorMove
+import org.example.game.Validator.pieces.JuggerValidatorPiece
 import org.example.game.Validator.pieces.PawnValidatorMove
 import org.example.game.Validator.special.CastleValidator
 import org.example.game.piece.Color
@@ -18,7 +19,7 @@ class PieceFabricator {
         val hashMap = HashMap<String , Int>()
 
         hashMap.put("moves", 0)
-        return PieceWithoutSpecialMove(id , color , "pawn" , listOf(PawnValidatorMove()) , hashMap)
+        return PieceWithoutSpecialMove(id , color , "pawn" , listOf(PawnValidatorMove()) , hashMap, false, true)
     }
 
     fun createRook(id : Int , color : Color) : Piece{
@@ -90,6 +91,7 @@ class PieceFabricator {
         val hashMap = HashMap<String , Int>()
 
         hashMap.put("moves", 0)
+        hashMap.put("kills", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(DiagonalValidatorMove(1 , listOf(1,2,3,4)))
         validators.add(VerticalValidatorMove(1 , true))
@@ -97,6 +99,15 @@ class PieceFabricator {
         validators.add(HorizontalValidatorMove(1 , true))
         validators.add(HorizontalValidatorMove(1 , false))
         return PieceWithoutSpecialMove(id , color , "king" , validators , hashMap)
+    }
+
+    fun createJugger(id : Int , color : Color) : Piece{
+        val hashMap = HashMap<String , Int>()
+
+        hashMap.put("moves", 0)
+        val validators = ArrayList<ValidatorMove>()
+        validators.add(JuggerValidatorPiece())
+        return PieceWithoutSpecialMove(id , color , "jugger" , validators , hashMap)
     }
 
 }

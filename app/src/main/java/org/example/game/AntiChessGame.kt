@@ -4,13 +4,15 @@ import org.example.game.Validator.CheckMateValidator
 import org.example.game.Validator.CheckValidator
 import org.example.game.board.Board
 import org.example.game.piece.Color
+import org.example.game.piece.Piece
 
 class AntiChessGame (
     private val board : Board,
     private val winCondition : WinCondition,
     private val turn : Color,
+    private val promotionPiece : Piece
 ) {
-    private val moverAnti : MoverAnti = MoverAnti()
+    private val moverAnti : MoverAnti = MoverAnti(promotionPiece)
 
 
     fun changeTurn () : Color {
@@ -28,7 +30,7 @@ class AntiChessGame (
         val cordinate1 = board.getCordinate(x1 , y1)
         val cordinate2 = board.getCordinate(x2 , y2)
         val newBoard = moverAnti.movePiece(cordinate1 , cordinate2 , board, turn)
-        return AntiChessGame(newBoard , winCondition, changeTurn())
+        return AntiChessGame(newBoard , winCondition, changeTurn(), promotionPiece)
     }
 
     fun getBoard () : Board {

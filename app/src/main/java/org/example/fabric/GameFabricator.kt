@@ -12,13 +12,14 @@ class GameFabricator {
         val boardFabricator = BoardFabricator()
         val board = boardFabricator.createNormalBoard()
         val winCondition = WinCondition(listOf(pieceFabricator.createKing(5, Color.WHITE) , pieceFabricator.createKing(29 , Color.BLACK)))
-        return Game(board, winCondition, Color.WHITE)
+        return Game(board, winCondition, Color.WHITE, pieceFabricator.createQueen(4, Color.WHITE))
     }
 
     fun createAntiChessGame() : AntiChessGame{
+        val pieceFabricator = PieceFabricator()
         val boardFabricator = BoardFabricator()
         val board = boardFabricator.createAntiChessBoard()
         val winCondition = WinCondition(listOf())
-        return AntiChessGame(board, winCondition, Color.WHITE)
+        return AntiChessGame(board, winCondition, Color.WHITE, pieceFabricator.createQueen(4, Color.WHITE))
     }
 }

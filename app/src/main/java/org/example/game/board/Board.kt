@@ -23,6 +23,18 @@ class Board (private var cordinates : List<Cordinate> ) {
         return Board(mutableCordinates)
     }
 
+    fun promotePiece(Cordinate : Cordinate, piece : Piece) : Board{
+        val mutableCordinates = mutableListOf<Cordinate>()
+        for (i in cordinates){
+            if (i.x == Cordinate.x && i.y == Cordinate.y){
+                mutableCordinates.add(i.pieceArrival(piece))
+                continue
+            }
+            mutableCordinates.add(i)
+        }
+        return Board(mutableCordinates)
+    }
+
     fun getCordinatesInBetween(Cordinate1 : Cordinate, Cordinate2 : Cordinate) : List<Cordinate>{
         val cordinatesInBetween = mutableListOf<Cordinate>()
         val x1 = Cordinate1.x
@@ -77,7 +89,7 @@ class Board (private var cordinates : List<Cordinate> ) {
         val enemyPieces = mutableListOf<Cordinate>()
         cordinates.forEach {
             if (it.hasPiece()){
-                if (it.piece!!.color != color){
+                if (it.piece!!.getColor() != color){
                     enemyPieces.add(it)
                 }
             }
@@ -89,7 +101,7 @@ class Board (private var cordinates : List<Cordinate> ) {
         val allyPieces = mutableListOf<Cordinate>()
         cordinates.forEach {
             if (it.hasPiece()){
-                if (it.piece!!.color == color){
+                if (it.piece!!.getColor() == color){
                     allyPieces.add(it)
                 }
             }

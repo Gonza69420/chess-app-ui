@@ -42,7 +42,7 @@ class CastleValidator() : SpecialValidatorMove {
 
     fun validateRook(x : Int , y : Int, board : Board, color : Color) : Boolean{
         val rook : Piece = board.getCordinate(x,y).piece!!
-        if(rook.type == "rook" && rook.data.get("moves") == 0 && rook.color == color){
+        if(rook.type == "rook" && rook.data.get("moves") == 0 && rook.getColor() == color){
             return true
         }
         return false
@@ -50,7 +50,7 @@ class CastleValidator() : SpecialValidatorMove {
 
     fun validateKing(x : Int , y : Int, board : Board, color : Color) : Boolean{
         val king : Piece = board.getCordinate(x,y).piece!!
-        if (king.type == "king" && king.data.get("moves") == 0 && king.color == color){
+        if (king.type == "king" && king.data.get("moves") == 0 && king.getColor() == color){
             return true
         }
         return false

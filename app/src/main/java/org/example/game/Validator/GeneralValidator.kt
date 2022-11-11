@@ -16,14 +16,14 @@ class GeneralValidator() {
     }
 
     fun validateAllyPieceInSecondCordinate(cordinate2: Cordinate, color : Color) : Status{
-        if(cordinate2.hasPiece() && cordinate2.piece!!.color == color){
+        if(cordinate2.hasPiece() && cordinate2.piece?.getColor() == color){
             return Status(false , "There is an ally piece in the second cordinate")
         }
         return Status(true , "")
     }
 
     fun validateIsItMyPiece(cordinate1 : Cordinate, color : Color) : Status{
-        if (cordinate1.piece?.color != color){
+        if (cordinate1.piece?.getColor() != color){
             return Status(false , "You can't move the enemy piece")
         }
         return Status(true , "")

@@ -44,7 +44,7 @@ class GameEngineClassic  : GameEngine {
         val listChessPieces = ArrayList<ChessPiece>()
         for (i in game.getBoard().getAllPieces()){
                 val cordinate = game.getBoard().getCordinateByPieceId(i.id)
-                if (i.color == Color.WHITE){
+                if (i.getColor() == Color.WHITE){
                     listChessPieces.add(ChessPiece(i.id.toString(), PlayerColor.WHITE , Position(cordinate.y , cordinate.x), i.type.toString()))
                 }else{
                     listChessPieces.add(ChessPiece(i.id.toString(), PlayerColor.BLACK , Position(cordinate.y , cordinate.x), i.type.toString()))

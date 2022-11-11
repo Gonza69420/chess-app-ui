@@ -12,7 +12,7 @@ class WinCondition( val pieces : List<Piece>) {
             idOfPieces += -1
         }
         for (i in pieces) {
-            if (i.color == color) {
+            if (i.getColor() == color) {
                 if (board.getIdOfPiecesInBoard().contains(i.id)) {
                     idOfPieces += i.id
                 }

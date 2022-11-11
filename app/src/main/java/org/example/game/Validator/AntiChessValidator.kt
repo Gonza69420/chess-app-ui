@@ -10,7 +10,7 @@ class AntiChessValidator() {
         val allyCordinates = board.getAllyCordinates(color)
         val enemyCordinates = board.getEnemyCordinates(color)
         if (Cordinate2.hasPiece()) {
-            if (Cordinate2.piece?.color != color) {
+            if (Cordinate2.piece?.getColor() != color) {
                 return Status(true, "")
             }
         }

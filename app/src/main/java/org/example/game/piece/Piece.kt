@@ -5,13 +5,14 @@ import org.example.game.Validator.ValidatorMove
 
 interface Piece{
     val id : Int
-    val color : Color?
     val type : String?
     val validator : List<ValidatorMove>?
-    val data : HashMap<String , Int>
+    var data : HashMap<String , Int>
     val dead : Boolean
     val promotion : Boolean
     fun getSpecialMoves() : List<SpecialValidatorMove>
     fun getValidators() : List<ValidatorMove>
     fun kill ( ) : Piece
+    fun getColor() : Color
+
 }
