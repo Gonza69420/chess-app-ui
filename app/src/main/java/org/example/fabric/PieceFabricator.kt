@@ -105,9 +105,10 @@ class PieceFabricator {
         val hashMap = HashMap<String , Int>()
 
         hashMap.put("moves", 0)
+        hashMap.put("kills", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(JuggerValidatorPiece())
-        return PieceWithoutSpecialMove(id , color , "jugger" , validators , hashMap)
+        return PieceWithoutSpecialMove(id , color , "chancellor" , validators , hashMap)
     }
 
 }
