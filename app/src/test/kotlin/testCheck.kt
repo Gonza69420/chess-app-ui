@@ -35,7 +35,7 @@ class testCheck {
         cordinates += CordinateWithPiece(5,2, pieceFabricator.createRook(6, Color.BLACK))
 
 
-        val game = Game(Board(cordinates), winCondition, Color.WHITE)
+        val game = Game(Board(cordinates), winCondition, Color.WHITE, pieceFabricator.createQueen(1, Color.WHITE))
         assertEquals(true, game.isItCheck())
     }
 
@@ -61,7 +61,7 @@ class testCheck {
         cordinates += CordinateWithPiece(5,2, pieceFabricator.createBishop(6, Color.BLACK))
 
 
-        val game = Game(Board(cordinates), winCondition, Color.WHITE)
+        val game = Game(Board(cordinates), winCondition, Color.WHITE, pieceFabricator.createQueen(1, Color.WHITE))
         assertEquals(false, game.isItCheck())
     }
 }
