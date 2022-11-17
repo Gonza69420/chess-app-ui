@@ -91,7 +91,6 @@ class PieceFabricator {
         val hashMap = HashMap<String , Int>()
 
         hashMap.put("moves", 0)
-        hashMap.put("kills", 0)
         val validators = ArrayList<ValidatorMove>()
         validators.add(DiagonalValidatorMove(1 , listOf(1,2,3,4)))
         validators.add(VerticalValidatorMove(1 , true))
@@ -109,6 +108,43 @@ class PieceFabricator {
         val validators = ArrayList<ValidatorMove>()
         validators.add(JuggerValidatorPiece())
         return PieceWithoutSpecialMove(id , color , "chancellor" , validators , hashMap)
+    }
+
+    fun createSuperKnight(id : Int , color : Color) : Piece{
+       val hashMap = HashMap<String , Int>()
+        hashMap.put("moves", 0)
+        val validators = ArrayList<ValidatorMove>()
+        validators.add(JumpValidator(1 , 2))
+        validators.add(JumpValidator(2 , 1))
+        validators.add(JumpValidator(1 , -2))
+        validators.add(JumpValidator(2 , -1))
+        validators.add(JumpValidator(-1 , 2))
+        validators.add(JumpValidator(-2 , 1))
+        validators.add(JumpValidator(-1 , -2))
+        validators.add(JumpValidator(-2 , -1))
+        validators.add(JumpValidator(1,1))
+        validators.add(JumpValidator(1,0))
+        validators.add(JumpValidator(0,1))
+        validators.add(JumpValidator(0,-1))
+        validators.add(JumpValidator(-1,0))
+        validators.add(JumpValidator(-1,-1))
+        validators.add(JumpValidator(-1,1))
+        validators.add(JumpValidator(1,-1))
+        validators.add(JumpValidator(2,0))
+        validators.add(JumpValidator(0,2))
+        validators.add(JumpValidator(0,-2))
+        validators.add(JumpValidator(-2,0))
+        validators.add(JumpValidator(-2,-2))
+        validators.add(JumpValidator(-2,2))
+        validators.add(JumpValidator(2,-2))
+        validators.add(JumpValidator(2,2))
+        validators.add(JumpValidator(-2,-2))
+        validators.add(JumpValidator(-2,2))
+        validators.add(JumpValidator(2,-2))
+        validators.add(JumpValidator(2,2))
+
+        return PieceWithoutSpecialMove(id , color , "archbishop" , validators , hashMap)
+
     }
 
 }

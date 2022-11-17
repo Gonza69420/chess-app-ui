@@ -26,8 +26,6 @@ class JuggerValidatorPiece() : ValidatorMove {
                                 if (Cordinate2.piece?.getColor() != color){
                                     Cordinate1.piece?.data?.put("kills", Cordinate1.piece?.data?.get("kills")!! + 1)
                                     if (Cordinate1.piece?.data?.get("kills")?.rem(3) == 0){
-                                        println("JuggerValidatorPiece: ${Cordinate2.hasPiece()}")
-
                                         level++
                                     }
                                 }
