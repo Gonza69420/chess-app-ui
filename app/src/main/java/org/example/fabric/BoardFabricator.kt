@@ -54,7 +54,7 @@ class BoardFabricator {
         listCordinates += CordinateWithPiece(4,1,PieceFabricator.createQueen(4,Color.WHITE))
         listCordinates += CordinateWithPiece(5,1,PieceFabricator.createKingWithouthCastle(5,Color.WHITE))
         listCordinates += CordinateWithPiece(6,1,PieceFabricator.createBishop(6,Color.WHITE))
-        listCordinates += CordinateWithPiece(7,1,PieceFabricator.createKnight(7,Color.WHITE))
+        listCordinates += CordinateWithPiece(7,1,PieceFabricator.createJugger(7,Color.WHITE))
         listCordinates += CordinateWithPiece(8,1,PieceFabricator.createRook(8,Color.WHITE))
         for (i in 1..8){
             listCordinates += CordinateWithPiece(i,2,PieceFabricator.createPawn(i+8,Color.WHITE))
@@ -76,7 +76,7 @@ class BoardFabricator {
         listCordinates += CordinateWithPiece(4,8,PieceFabricator.createQueen(28,Color.BLACK))
         listCordinates += CordinateWithPiece(5,8,PieceFabricator.createKingWithouthCastle(29,Color.BLACK))
         listCordinates += CordinateWithPiece(6,8,PieceFabricator.createBishop(30,Color.BLACK))
-        listCordinates += CordinateWithPiece(7,8,PieceFabricator.createKnight(31,Color.BLACK))
+        listCordinates += CordinateWithPiece(7,8,PieceFabricator.createJugger(31,Color.BLACK))
         listCordinates += CordinateWithPiece(8,8,PieceFabricator.createRook(32,Color.BLACK))
 
         return Board(listCordinates)
