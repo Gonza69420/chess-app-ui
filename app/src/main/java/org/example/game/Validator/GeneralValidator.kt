@@ -5,7 +5,7 @@ import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
-class GeneralValidator() {
+abstract class GeneralValidator() : ValidatorMove {
     fun validatePiecesInBetween(cordinate1 : Cordinate, cordinate2 : Cordinate , board : Board) : Status{
         board.getCordinatesInBetween(cordinate1, cordinate2).forEach {
             if(it.hasPiece()){
@@ -34,6 +34,42 @@ class GeneralValidator() {
             return Status(false , "You can't move to the same cordinate")
         }
         return Status(true , "")
+    }
+
+    fun validatecommonConditions(cordinate1: Cordinate, cordinate2: Cordinate, color: Color, board: Board): Status {
+        if (validateIsItMyPiece(cordinate1, color).bool){
+            if (validatePiecesInBetween(cordinate1, cordinate2 , board).bool){
+                if (validateAllyPieceInSecondCordinate(cordinate2 , color).bool) {
+                    if (validateCordinate1EqualsCordinate2(cordinate1, cordinate2).bool) {
+                        return Status(true , "")
+                    }else{
+                        return validateCordinate1EqualsCordinate2(cordinate1, cordinate2)
+                    }
+                    } else {
+                        return validateAllyPieceInSecondCordinate(cordinate2 , color)
+                    }
+                }else{
+                    return validatePiecesInBetween(cordinate1, cordinate2 , board)
+                }
+        }else{
+            return validateIsItMyPiece(cordinate1, color)
+        }
+    }
+
+    fun validatePieceAnd2Cordinate(cordinate1: Cordinate, cordinate2: Cordinate, color: Color) : Status{
+        if(validateIsItMyPiece(cordinate1, color).bool){
+            if(validateCordinate1EqualsCordinate2(cordinate1, cordinate2).bool){
+                if (validateAllyPieceInSecondCordinate(cordinate2 , color).bool) {
+                    return Status(true , "")
+            }else{
+                return validateAllyPieceInSecondCordinate(cordinate2, color)
+            }
+            }else{
+                return validateCordinate1EqualsCordinate2(cordinate1, cordinate2)
+            }
+        }else{
+            return validateIsItMyPiece(cordinate1, color)
+        }
     }
 
 }

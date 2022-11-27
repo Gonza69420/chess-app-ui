@@ -7,6 +7,7 @@ import org.example.game.piece.Color
 class AntiChessValidator() {
 
     fun validate(color: Color, board: Board, Cordinate2 : Cordinate): Status {
+        try{
         val allyCordinates = board.getAllyCordinates(color)
         val enemyCordinates = board.getEnemyCordinates(color)
         if (Cordinate2.hasPiece()) {
@@ -31,5 +32,9 @@ class AntiChessValidator() {
             }
         }
         return Status(true , "")
+    }
+    catch (e : Exception){
+        return Status(false , "Invalid move")
+    }
     }
 }

@@ -9,13 +9,10 @@ import org.example.game.board.Cordinate
 import org.example.game.board.EmptyCordinate
 import org.example.game.piece.Color
 
-class PawnCaptureValidatorMove() : ValidatorMove {
-    private val generalValidator: GeneralValidator = GeneralValidator()
+class PawnCaptureValidatorMove() : GeneralValidator() {
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
-        if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool){
-            if (generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool) {
-                if (generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool) {
+        if(validatePieceAnd2Cordinate(Cordinate1, Cordinate2, color).bool){
                     if (!Cordinate2.hasPiece()) return Status(false, "Invalid move")
 
                     if (color == Color.WHITE) {
@@ -32,15 +29,8 @@ class PawnCaptureValidatorMove() : ValidatorMove {
                         }
                     }
                 } else {
-                    return generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2)
+                    throw Exception(validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).error)
                 }
-            }else{
-                return generalValidator.validateAllyPieceInSecondCordinate(Cordinate2, color)
-            }
-        }else{
-            return generalValidator.validateIsItMyPiece(Cordinate1, color)
-        }
-
         return Status(false, "Invalid move")
     }
 

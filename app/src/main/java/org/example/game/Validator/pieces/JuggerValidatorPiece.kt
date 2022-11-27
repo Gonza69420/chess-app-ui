@@ -10,15 +10,12 @@ import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
-class JuggerValidatorPiece() : ValidatorMove {
-    private val generalValidator = GeneralValidator()
+class JuggerValidatorPiece() : GeneralValidator() {
 
     private var level : Int = 1
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
-        if (generalValidator.validateIsItMyPiece( Cordinate1, color).bool) {
-            if (generalValidator.validatePiecesInBetween( Cordinate1, Cordinate2 , board).bool){
-                if (generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool){
+        if (validatecommonConditions(Cordinate1, Cordinate2, color, board).bool) {
                     val listOfValidators = listOf<ValidatorMove>(VerticalValidatorMove(level , false), VerticalValidatorMove(level , true), HorizontalValidatorMove(level , false), HorizontalValidatorMove(level , true), DiagonalValidatorMove(level , listOf(1,2,3,4)))
                     for (validator in listOfValidators){
                         if (validator.validate(Cordinate1, Cordinate2, color, board).bool){
@@ -33,15 +30,9 @@ class JuggerValidatorPiece() : ValidatorMove {
                             return Status(true , "")
                         }
                     }
-                }else{
-                    return generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2)
+                } else {
+                    throw Exception(validatecommonConditions(Cordinate1, Cordinate2, color, board).error)
                 }
-            }else{
-                return generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2 , board)
-            }
-        }else{
-            return Status(false, "This is not your Piece")
-        }
-        return Status(false, "Invalid move")
+        return Status(false , "Invalid move")
     }
 }

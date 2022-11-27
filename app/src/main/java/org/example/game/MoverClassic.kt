@@ -11,7 +11,6 @@ import org.example.game.piece.PieceWithoutSpecialMove
 class MoverClassic(val checkValidator: CheckValidator, val promotionPiece: Piece) {
 
     val winCondition: WinCondition = checkValidator.getWinCondition()
-    val PromoteValidator = PromoteValidator()
 
     fun movePiece (Cordinate1 : Cordinate, Cordinate2 : Cordinate, board : Board, color : Color) : Board {
         var enemyColor : Color

@@ -10,8 +10,7 @@ import org.example.game.board.Board
 import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
-class PawnValidatorMove() : ValidatorMove {
-    private val generalValidator = GeneralValidator()
+class PawnValidatorMove() : GeneralValidator() {
     private val pawnCaptureValidatorMove: PawnCaptureValidatorMove = PawnCaptureValidatorMove()
     private lateinit var verticalValidatorMove : VerticalValidatorMove
 
@@ -27,19 +26,7 @@ class PawnValidatorMove() : ValidatorMove {
         if (verticalValidatorMove.validate(Cordinate1, Cordinate2, color, board).bool && !Cordinate2.hasPiece()) {
             return Status(true, "")
         }
-        if (generalValidator.validateIsItMyPiece(Cordinate1, color).bool) {
-            if (generalValidator.validateAllyPieceInSecondCordinate(Cordinate2, color).bool) {
-                if (generalValidator.validateCordinate1EqualsCordinate2(
-                        Cordinate1,
-                        Cordinate2
-                    ).bool
-                ) {
-                    if (generalValidator.validatePiecesInBetween(
-                            Cordinate1,
-                            Cordinate2,
-                            board
-                        ).bool
-                    ) {
+        if (validatecommonConditions(Cordinate1, Cordinate2, color, board).bool) {
                         if (Cordinate1.piece?.data?.get("moves") == 0 && !Cordinate2.hasPiece()) {
                             if (Cordinate1.x == Cordinate2.x && Cordinate1.y == Cordinate2.y - 2 && color == Color.WHITE) {
                                 return Status(true, "")
@@ -48,10 +35,9 @@ class PawnValidatorMove() : ValidatorMove {
                                 return Status(true, "")
                             }
                         }
+                    } else {
+                        throw Exception(validatecommonConditions(Cordinate1, Cordinate2, color, board).error)
                     }
-                }
-            }
-        }
         return Status(false, "Invalid move")
     }
 }

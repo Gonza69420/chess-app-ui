@@ -9,10 +9,7 @@ import org.example.game.board.EmptyCordinate
 import org.example.game.piece.Color
 import org.example.game.piece.Piece
 
-class CastleValidator() : SpecialValidatorMove {
-
-    private val generalValidator: GeneralValidator = GeneralValidator()
-
+class CastleValidator() : SpecialValidatorMove, GeneralValidator() {
     override fun positionFinal(color : Color, board : Board, cordinate2 : Cordinate): List<Cordinate> {
         var y = 1
         if (color == Color.BLACK){
@@ -28,14 +25,15 @@ class CastleValidator() : SpecialValidatorMove {
     }
 
     override fun validate(Cordinate1: Cordinate, Cordinate2: Cordinate, color: Color, board: Board): Status {
-            if(generalValidator.validateCordinate1EqualsCordinate2(Cordinate1, Cordinate2).bool && generalValidator.validateAllyPieceInSecondCordinate(Cordinate2 , color).bool && generalValidator.validatePiecesInBetween(Cordinate1, Cordinate2, board).bool){
-                if (Cordinate2.x == 2){
+        if (validatecommonConditions(Cordinate1 , Cordinate2 , color, board).bool){
+            if (Cordinate2.x == 2){
                     return validateLeftSide(Cordinate1, Cordinate2, board, color)
                 }else{
                     return validateRightSide(Cordinate1, Cordinate2, board, color)
                 }
-            }
-
+        }else{
+                throw Exception(validatecommonConditions(Cordinate1 , Cordinate2 , color, board).error)
+        }
         return Status(false, "Invalid move")
     }
 
