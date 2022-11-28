@@ -2,6 +2,7 @@ package org.example.game.Validator
 
 import org.example.game.WinCondition
 import org.example.game.board.Board
+import org.example.game.board.Cordinate
 import org.example.game.piece.Color
 
 class CheckValidator(private val winCondition: WinCondition) {
@@ -13,27 +14,27 @@ class CheckValidator(private val winCondition: WinCondition) {
                 val enemyCordinate = board.getEnemyCordinates(color)
                 for (i in enemyCordinate) {
                     for (j in i.piece?.getValidators()!!) {
-                        try {
-                            if (j.validate(i, board.getCordinateByPieceId(idOfPieces.get(0)), enemyColor, board).bool) {
-                                return true
-                            }
-                        } catch (e: Exception) {
-                            continue
-                        }
+                        if (validateCheck(i, j, board, idOfPieces, enemyColor)) return true else continue
                     }
                     for (j in i.piece!!.getSpecialMoves()) {
-                        try {
-                            if (j.validate(i, board.getCordinateByPieceId(idOfPieces.get(0)), enemyColor, board).bool) {
-                                return true
-                            }
-                        } catch (e: Exception) {
-                            continue
-                        }
+                        if (validateCheck(i, j, board, idOfPieces, enemyColor)) return true else continue
                     }
                 }
             }
         return false
     }
+
+    private fun validateCheck(enemyCordinate : Cordinate, validator : ValidatorMove, board: Board, id : List<Int>, enemyColor : Color) : Boolean{
+        try {
+            if (validator.validate(enemyCordinate, board.getCordinateByPieceId(id.get(0)), enemyColor, board).bool) {
+                return true
+            }
+        } catch (e: Exception) {
+        }
+        return false
+    }
+
+
 
     fun getWinCondition() : WinCondition{
         return winCondition
