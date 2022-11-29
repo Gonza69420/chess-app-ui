@@ -17,7 +17,7 @@ class CastleValidator() : SpecialValidatorMove, GeneralValidator() {
         }
         var list : List<Cordinate> = ArrayList()
             if (cordinate2.x == 2) {
-                list = listOf(CordinateWithPiece(3, y, board.getCordinate(1, y).piece), CordinateWithPiece(4, y, board.getCordinate(5, y).piece), EmptyCordinate(1, y), EmptyCordinate(5, y))
+                list = listOf(CordinateWithPiece(3, y, board.getCordinate(1, y).piece), CordinateWithPiece(2, y, board.getCordinate(5, y).piece), EmptyCordinate(1, y), EmptyCordinate(5, y), EmptyCordinate(4,y))
             } else if (cordinate2.x == 7) {
                 list = listOf(CordinateWithPiece(6, y, board.getCordinate(8, y).piece), CordinateWithPiece(7, y, board.getCordinate(5, y).piece), EmptyCordinate(8, y), EmptyCordinate(5, y))
             }
